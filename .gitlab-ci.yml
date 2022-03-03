@@ -1,0 +1,173 @@
+image:
+  name: docker:latest
+  entrypoint: [""]
+
+services:
+  - name: docker:dind
+    entrypoint: ["env", "-u", "DOCKER_HOST"]
+    command: ["dockerd-entrypoint.sh"]
+  - name: postgres:latest
+
+variables:
+  DOCKER_HOST: tcp://docker:2376
+  DOCKER_DRIVER: overlay2
+  POSTGRES_DB: $POSTGRES_DB
+  POSTGRES_USER: $POSTGRES_USER
+  POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+
+connect:
+  image: postgres
+  script:
+    - export PGPASSWORD=$POSTGRES_PASSWORD
+    - psql -h "postgres" -U "$POSTGRES_USER" -d "$POSTGRES_DB" -c "SELECT 'OK' AS status;"
+
+stages:
+  - prepare
+  - build
+  - develop
+  - deploy
+  - confidence-check
+
+
+install_dependencies:
+  stage: prepare
+  cache: 
+    key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
+    paths:
+      - requirements.txt/
+  script:
+    - pip install -r requirements.txt
+  only:
+    changes:
+      - requirements.txt
+
+build-client:
+  stage: build
+  cache:
+    key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
+    paths:
+      - requirements.txt/
+      - build/
+    policy: pull-push
+
+  variables:
+    SHARED_PATH: /builds/$CI_PROJECT_PATH/mnt
+
+  before_script:
+    - docker info
+    - echo "$DOCKER_REGISTRY_PASS" | docker login $DOCKER_REGISTRY --username $DOCKER_REGISTRY_USER --password-stdin
+
+  script:
+    - docker pull $CI_REGISTRY_IMAGE:latest || true
+    - docker build --cache-from $CI_REGISTRY_IMAGE:latest --tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA --tag $CI_REGISTRY_IMAGE:latest .
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+    - docker push $CI_REGISTRY_IMAGE:latest
+    - mkdir -p ${SHARED_PATH}
+    - touch ${SHARED_PATH}/test_file
+    - find ${SHARED_PATH}
+    - docker run -v ${SHARED_PATH}:/mnt ubuntu ls-la /mnt
+
+  artifacts:
+    paths:
+      - build
+
+migrations:
+  stage: build
+  script:
+    - python3 manage.py makemigrations
+    - python3 manage.py migrate
+    - python3 manage.py check
+
+code-test:
+  stage: test
+  cache:
+    key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
+    paths:
+      - requirements.txt/
+    policy: pull
+  image: python:3.8-slimbuster
+  
+  script:
+    - export DATABASE_URL=postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@postgres:5432/$POSTGRES_DB
+    - pip install --upgrade pip
+    - pip install virtualenv
+    - virtualenv --python=python3 venv
+    - source venv/bin/activate
+    - tor -r
+
+  coverage: "/TOTAL.+ ([0-9]{1,3}%)/"
+
+    
+deploy-to-staging:
+  stage: deploy
+  cache:
+    key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
+    paths:
+      - requirements.txt/
+    policy: pull
+
+  before_script:
+    - apt-get update -yq
+    - apt-get install -y ruby-dev
+     
+  script:
+    - gem install dpl
+    - dpl --provider=heroku --app=$HEROKU_STAGING_APP --api-key=$HEROKU_STAGING_API_KEY --skip-cleanup
+
+  when: manual
+  allow_failure: false
+  dependencies: build
+
+  only:
+   - develop
+
+deploy-to-production:
+  stage: deploy
+  cache:
+    key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
+    paths:
+      - requirements.txt/
+    policy: pull
+
+  before_script:
+      - aapt-get update -yq
+      - apt-get install -y ruby-dev
+
+  script:
+    - gem install dpl
+    - dpl --provider=heroku --app=$HEROKU_PRODUCTION_APP --api-key=$HEROKU_PRODUCTION_API_KEY --skip-cleanup
+
+  rules:
+    - if: $CI_DEPLOY_FREEZE == null
+
+  only:
+   - prod
+
+e2e: firefox:
+  stage: confidence-check
+  services: 
+    - selenium/standalone-firefox
+  script:
+    - docker pull selenium/standalone-firefox
+    - docker run confidence-check --host=selenium__standalone-firefox
+
+  artifacts:
+    expire_in: 1 week
+    when: always
+
+  retry: 2
+
+e2e: chrome:
+  stage: confidence-check
+  services:
+    - selenium/standalone-chrome
+  
+  script:
+    - docker pull selenium/standalone-chrome
+    - docker run confidence-check --host=selenium__standalone-chrome
+
+  artifacts:
+    expire_in: 1 week
+    when: always
+
+  retry: 2
