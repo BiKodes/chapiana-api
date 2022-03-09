@@ -195,7 +195,7 @@ The deployment has been set and scaled via CI/CD.
 
 ##### Steps
 - The deployment is defined in `.gitlab-ci.yml`.
-- It has 8 jobs which include `install_dependencies`,`build-client`, `migrations`, `code-test`, `deploy-to-staging`, `deploy-to-production`, `e2e: firefox` and `e2e: chrome`.
+- It has 8 jobs which include `install_dependencies`,`build-client`, `migrations`, `connect` `code-test`, `deploy-to-staging`, `deploy-to-production`, and `deploy-to-release`.
 - The repository has three branches `dev`, `prod` and `release`.
 - Feature branches are merged into `dev`  which points to the `prod` branch.
 - The deployment has six stages `prepare` , `build`, `test`, `develop`, `deploy` and `confidence-check`.

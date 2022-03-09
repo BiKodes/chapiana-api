@@ -139,7 +139,7 @@ deploy-to-production:
   only:
    - prod
 
-deploy-to-production:
+deploy-to-release:
   stage: deploy
   cache:
     key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
