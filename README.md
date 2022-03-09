@@ -2,7 +2,7 @@
 
 [![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs)
 
-[![GitLab Pipeline](https://img.shields.io/gitlab/pipeline/bikocodes/chapiana-api.git)]
+[GitLab Pipeline](https://img.shields.io/gitlab/pipeline/bikocodes/chapiana-api.git)
 
 
 ## Table of contents
