@@ -2,7 +2,7 @@
 [![Pipeline Status](https://gitlab.com/bikocodes/chapiana-api/badges/dev/pipeline.svg)](https://gitlab.com/bikocodes/chapiana-api/-/commits/dev)
 [![Coverage Report](https://gitlab.com/bikocodes/chapiana-api/badges/dev/coverage.svg)](https://gitlab.com/bikocodes/chapiana-api/-/commits/dev)
 [![Latest Release](https://gitlab.com/bikocodes/chapiana-api/-/badges/release.svg)](https://gitlab.com/bikocodes/chapiana-api/-/releases)
-[![Total Lines](https://img.shields.io/tokei/lines/gitlab/BikoCodes/chapiana-api)]()
+[![Lines of Code](https://img.shields.io/tokei/lines/gitlab/BikoCodes/chapiana-api)]
 [![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://gitlab.com/bikocodes/chapiana-api/-/blob/dev/LICENSE)
 
 
