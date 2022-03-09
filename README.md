@@ -221,9 +221,15 @@ Want to see the contactapi application in action?.
 
 Developing RESTFUL API's integrated with unittesting test and functional testing.
 
-## Feedback
+## Packagerized Project
 
-If you have any feedback, please reach out to us at bikocodes@gmail.com
+You can find the chapiana-api as a package on Python Package Index testing plaftorm.Use the following link to download:
+
+ * [Download](https://test.pypi.org/project/contactsapi/#files)
+
+ You can also use the following commands:
+
+ `pip install -i https://test.pypi.org/simple/contactsapi`
 
 ## License
 
