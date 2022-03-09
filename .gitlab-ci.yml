@@ -155,8 +155,5 @@ deploy-to-production:
     - gem install dpl
     - dpl --provider=heroku --app=$HEROKU_PRODUCTION_APP --api-key=$HEROKU_PRODUCTION_API_KEY --skip-cleanup
 
-  rules:
-    - if: $CI_DEPLOY_FREEZE == null
-
   only:
    - release
