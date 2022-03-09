@@ -117,7 +117,7 @@ deploy-to-staging:
 
   when: manual
   allow_failure: false
-  dependencies: build
+  dependencies: <<: build
 
   only:
    - dev
@@ -165,32 +165,3 @@ deploy-to-production:
 
   only:
    - release
-
-# e2e: firefox:
-#   stage: confidence-check
-#   services: 
-#     - selenium/standalone-firefox
-#   script:
-#     - docker pull selenium/standalone-firefox
-#     - docker run confidence-check --host=selenium__standalone-firefox
-
-#   artifacts:
-#     expire_in: 1 week
-#     when: always
-
-#   retry: 2
-
-# e2e: chrome:
-#   stage: confidence-check
-#   services:
-#     - selenium/standalone-chrome
-  
-#   script:
-#     - docker pull selenium/standalone-chrome
-#     - docker run confidence-check --host=selenium__standalone-chrome
-
-#   artifacts:
-#     expire_in: 1 week
-#     when: always
-
-#   retry: 2
