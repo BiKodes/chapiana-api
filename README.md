@@ -1,7 +1,7 @@
 ## Badges
 
 [![Coverage Report](https://gitlab.com/bikocodes/chapiana-api/badges/dev/coverage.svg)](https://gitlab.com/bikocodes/chapiana-api/commits/dev)
-[![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://gitlab.com/bikocodes/chapiana-api/LICENSE/dev)
+[![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://gitlab.com/bikocodes/chapiana-api/LICENSE)
 
 
 ## Table of contents
