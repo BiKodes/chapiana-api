@@ -228,8 +228,9 @@ You can find the chapiana-api as a package on Python Package Index testing plaft
  * [Download](https://test.pypi.org/project/contactsapi/#files)
 
  You can also use the following commands:
-
- `pip install -i https://test.pypi.org/simple/contactsapi`
+  ```bash
+  pip install -i https://test.pypi.org/simple/contactsapi
+  ```
 
 ## License
 
