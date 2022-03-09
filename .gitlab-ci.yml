@@ -97,7 +97,6 @@ code-test:
     - tor -r
 
   coverage: "/TOTAL.+ ([0-9]{1,3}%)/"
-    # ^TOTAL.+?(\d+\%)$
     
 deploy-to-staging:
   stage: deploy

@@ -7,8 +7,8 @@ newrelic==7.2.4.171
 django-cors-headers
 
 #Libs
-google-api-python-client==2.36.0
-facebook-sdk-python
+# google-api-python-client==2.36.0
+# facebook-sdk-python
 
 
 # For the persistence stores
