@@ -24,6 +24,7 @@ connect:
 stages:
   - prepare
   - build
+  - test
   - develop
   - deploy
   - confidence-check
@@ -119,7 +120,7 @@ deploy-to-staging:
   dependencies: build
 
   only:
-   - develop
+   - dev
 
 deploy-to-production:
   stage: deploy
@@ -142,6 +143,28 @@ deploy-to-production:
 
   only:
    - prod
+
+deploy-to-production:
+  stage: deploy
+  cache:
+    key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
+    paths:
+      - requirements.txt/
+    policy: pull
+
+  before_script:
+      - aapt-get update -yq
+      - apt-get install -y ruby-dev
+
+  script:
+    - gem install dpl
+    - dpl --provider=heroku --app=$HEROKU_PRODUCTION_APP --api-key=$HEROKU_PRODUCTION_API_KEY --skip-cleanup
+
+  rules:
+    - if: $CI_DEPLOY_FREEZE == null
+
+  only:
+   - release
 
 e2e: firefox:
   stage: confidence-check

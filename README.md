@@ -186,6 +186,28 @@ To run tests, run the following command from the projects root:
   (venv)$ coverage run manage.py test
 ```
 
+## Deployment
+
+The application has been deployed to [Heroku](https://devcenter.heroku.com/).
+
+The deployment has been set and scaled via CI/CD.
+
+##### Steps
+- The deployment is defined in `.gitlab-ci.yml`.
+- It has 8 jobs which include `install_dependencies`,`build-client`, `migrations`, `code-test`, `deploy-to-staging`, `deploy-to-production`, `e2e: firefox` and `e2e: chrome`.
+- The repository has three branches `dev`, `prod` and `release`.
+- Feature branches are merged into `dev`  which points to the `prod` branch.
+- The deployment has six stages `prepare` , `build`, `test`, `develop`, `deploy` and `confidence-check`.
+- The application is built from the Docker image and pushed to [Heroku](https://devcenter.heroku.com/)
+- The codebase tests under the `test` stage are run and if there is a failure then the next stage will not be executed.
+- There are two jobs that run under the `deploy` stage, the first one runs on `prod` branch and deploys the code to a production-A environment, the second one runs on `release` branch and deploys the code to a production-B environment.  
+
+## Todo
+- [ ] Ensure GitLab Pipepilnes are working
+- [ ] Solve the bug issues arising int the CI/CD.
+- [ ] Ensure tests are running appropriately.
+- [ ] Deploy `Chapiana-api` on the stated environments.
+
 ## Demo
 
 Want to see the contactapi application in action?.
