@@ -1,7 +1,10 @@
 ## Badges
 
-[![pipeline status](https://gitlab.com/bikocodes/chapiana-api/badges/dev/pipeline.svg)](https://gitlab.com/bikocodes/chapiana-api/commits/master)
-[![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSES)
+[![Coverage Report](https://gitlab.com/bikocodes/chapiana-api/badges/dev/coverage.svg)](https://gitlab.com/bikocodes/chapiana-api/-/commits/dev)
+[![Pipeline Status](https://gitlab.com/bikocodes/chapiana-api/badges/pipeline.svg)](https://gitlab.com/bikocodes/chapiana-api/commits)
+[![Repo Size in Bytes](https://gitlab.com/bikocodes/chapiana-api/badges/pipeline.svg)](https://gitlab.com/bikocodes/chapiana-api/commits)
+[![Latest Release](https://gitlab.com/bikocodes/chapiana-api/-/badges/release.svg)](https://gitlab.com/bikocodes/chapiana-api/-/releases)
+[![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://gitlab.com/bikocodes/chapiana-api/-/blob/dev/LICENSE)
 
 
 ## Table of contents
