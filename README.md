@@ -1,5 +1,6 @@
 ## Badges
 
+[![pipeline status](https://gitlab.com/bikocodes/chapiana-api/badges/dev/pipeline.svg)](https://gitlab.com/bikocodes/chapiana-api/commits/master)
 [![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSES)
 
 
