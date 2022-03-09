@@ -1,4 +1,5 @@
 [run]
+source=src
 branch = True
 omit = *migrations*,
        *urls*,
@@ -8,3 +9,9 @@ omit = *migrations*,
        ./contacts/config/*,
        ./contacts/wsgi.py,
        *__init__*
+
+[html]
+directory = coverage
+
+[report]
+show_missing=True

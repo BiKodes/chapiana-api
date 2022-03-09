@@ -219,9 +219,7 @@ class Common(Configuration):
         ),
     }
 
-    AUTHENTICATION_BACKENDS = (
-        "django.contrib.auth.backends.ModelBackend",
-    )
+    AUTHENTICATION_BACKENDS = ("django.contrib.auth.backends.ModelBackend",)
 
     SIMPLE_JWT = {
         "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
