@@ -21,7 +21,7 @@ class HostTest(LiveServerTestCase):
 
         options = webdriver.FirefoxOptions()
         options.headless = True
-        driver = webdriver.Firefox(executable_path="./geckodriver")
+        driver = webdriver.Firefox(executable_path="../geckodriver")
 
         driver.get("http://127.0.0.1:8000/")
 
@@ -44,7 +44,7 @@ class LoginFormTest(LiveServerTestCase):
     def test_login_with_chrome(self):
         options = Options()
         options.headless = True
-        driver = webdriver.Chrome(executable_path="./chromedriver")
+        driver = webdriver.Chrome(executable_path="../chromedriver")
 
         driver.get(("%s%s" % (self.live_server_url, "/accounts/login/")))
 
@@ -65,7 +65,7 @@ class LoginFormTest(LiveServerTestCase):
         assert "admin" in driver.page_source
 
     def test_login_with_firefox(self):
-        driver = webdriver.Firefox(executable_path="./geckodriver")
+        driver = webdriver.Firefox(executable_path="../geckodriver")
 
         driver.get("http://localhost:8000/accounts/login/")
 

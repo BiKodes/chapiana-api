@@ -1,14 +1,17 @@
 [run]
 source=src
 branch = True
-omit = *migrations*,
-       *urls*,
-       *test*,
-       *admin*,
-       ./manage.py,
-       ./contacts/config/*,
-       ./contacts/wsgi.py,
-       *__init__*
+parallel=True
+concurrency=multiprocessing
+omit = 
+        *migrations*,
+        *urls*,
+        *test*,
+        *admin*,
+        ./manage.py,
+        ./contacts/config/*,
+        ./contacts/wsgi.py,
+        *__init__*
 
 [html]
 directory = coverage
