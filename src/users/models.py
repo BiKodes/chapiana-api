@@ -8,9 +8,6 @@ from django.dispatch import receiver
 from rest_framework.authtoken.models import Token
 
 AUTH_PROVIDERS = {
-    "facebook": "facebook",
-    "google": "google",
-    "twitter": "twitter",
     "email": "email",
 }
 

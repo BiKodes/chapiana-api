@@ -1,8 +1,6 @@
 import time
-from lib2to3.pgen2 import driver
 
 from django.test import LiveServerTestCase
-from rest_framework import status
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
@@ -85,6 +83,6 @@ class LoginFormTest(LiveServerTestCase):
 
         submit.send_keys(Keys.RETURN)
 
-        # wait.until(EC.visibility_of_element_located((By.ID, "submit-id-submit")))
+        wait.until(EC.visibility_of_element_located((By.ID, "submit-id-submit")))
 
         assert "ivar" in driver.page_source
