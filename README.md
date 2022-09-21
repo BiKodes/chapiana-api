@@ -168,7 +168,7 @@ For more details se e https://dotnettutorials.net/lesson/unit-of-work-csharp-mvc
 
 10. Register and login. Navigate to: 
   ```bash
-    http://localhost:5000
+    http://localhost:8000
   ```
 
 ## Tech Stack
