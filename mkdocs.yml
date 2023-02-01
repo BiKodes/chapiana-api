@@ -1,8 +1,8 @@
-site_name: contacts
+site_name: chapiana-api
 site_description: Its all about a Weissman score > 5.0
-repo_url: https://github.com/BikoCodes/contactsapi
+repo_url: https://gitlab.com/bikocodes/chapiana-api
 site_dir: site
-copyright: Copyright &copy; 2020, <a href="https://github.com/BikoCodes">BikoCodes</a>.
+copyright: Copyright &copy; 2020, <a href="https://gitlab.com/bikocodes/chapiana-api">BikoCodes</a>.
 dev_addr: 0.0.0.0:8001
 
 nav:

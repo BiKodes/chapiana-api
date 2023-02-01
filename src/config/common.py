@@ -19,6 +19,7 @@ class Common(Configuration):
         "django.contrib.sessions",
         "django.contrib.messages",
         "django.contrib.staticfiles",
+        
         # Third party apps
         "rest_framework",  # utilities for rest apis
         "rest_framework.authtoken",  # token authentication
@@ -27,6 +28,7 @@ class Common(Configuration):
         "rest_framework_simplejwt.token_blacklist",
         "drf_yasg",
         "corsheaders",
+        
         # Your apps
         "src.users",
         "src.contacts",
@@ -42,7 +44,6 @@ class Common(Configuration):
         },
     }
 
-    # https://docs.djangoproject.com/en/2.0/topics/http/middleware/
     MIDDLEWARE = (
         "django.middleware.security.SecurityMiddleware",
         "django.contrib.sessions.middleware.SessionMiddleware",
@@ -63,13 +64,9 @@ class Common(Configuration):
     ROOT_URLCONF = "src.urls"
     SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
     WSGI_APPLICATION = "src.wsgi.application"
-
-    # Email
     EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-
     ADMINS = (("Author", "bikocodes@gmail.com"),)
 
-    # Postgres
     DATABASES = {
         "default": dj_database_url.config(
             default="postgres://postgres:@postgres:5432/postgres",
@@ -77,12 +74,12 @@ class Common(Configuration):
         )
     }
 
-    # General
     APPEND_SLASH = False
     TIME_ZONE = "UTC"
     LANGUAGE_CODE = "en-us"
-    # If you set this to False, Django will make some optimizations so as not
-    # to load the internationalization machinery.
+
+    # If you set this to False, Django will make some optimizations so 
+    # as not to load the internationalization machinery.
     USE_I18N = False
     USE_L10N = True
     USE_TZ = True
@@ -92,7 +89,7 @@ class Common(Configuration):
     SECRET_KEY = get_random_string(50, chars)
 
     # Static files (CSS, JavaScript, Images)
-    # https://docs.djangoproject.com/en/2.0/howto/static-files/
+  
     STATIC_ROOT = os.path.normpath(join(os.path.dirname(BASE_DIR), "static"))
     STATICFILES_DIRS = []
     STATIC_URL = "/static/"
@@ -122,11 +119,9 @@ class Common(Configuration):
     ]
 
     # Set DEBUG to False as a default for safety
-    # https://docs.djangoproject.com/en/dev/ref/settings/#debug
     DEBUG = strtobool(os.getenv("DJANGO_DEBUG", "no"))
 
     # Password Validation
-    # https://docs.djangoproject.com/en/2.0/topics/auth/passwords/#module-django.contrib.auth.password_validation
     AUTH_PASSWORD_VALIDATORS = [
         {
             "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
@@ -196,10 +191,9 @@ class Common(Configuration):
         },
     }
 
-    # Custom user app
+    # Custom user
     AUTH_USER_MODEL = "users.User"
 
-    # Django Rest Framework
     REST_FRAMEWORK = {
         "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
         "PAGE_SIZE": int(os.getenv("DJANGO_PAGINATION_LIMIT", 10)),

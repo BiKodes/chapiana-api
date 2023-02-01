@@ -115,16 +115,16 @@ For more details se e https://dotnettutorials.net/lesson/unit-of-work-csharp-mvc
    $ python3 -m venv venv && source venv/bin/activate
   ```
 
-2. Clone the contactsapi project
+2. Clone the chapiana-api project
 
   ```bash
     git clone https://github.com/BikoCodes/tests.git
   ```
 
-3. Navigate to the contactsapi directory
+3. Navigate to the chapiana-api directory
 
   ```bash
-    cd contactsapi
+    cd src
   ```
 
 4. Install the requirements:
