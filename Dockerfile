@@ -13,6 +13,6 @@ EXPOSE 8000
 
 VOLUME ["/opt/chapiana-api"]
 # Run the production server
-CMD newrelic-admin run-program gunicorn --bind 0.0.0.0:$PORT --access-logfile - contacts.wsgi:application
+CMD newrelic-admin run-program gunicorn --bind 0.0.0.0:$PORT --access-logfile - src.wsgi:application
 
 ENTRYPOINT ["sh", "/opt/chapiana-api/entrypoint.sh" ] 

@@ -4,7 +4,7 @@ from django.urls import resolve, reverse
 from src.contacts.views import ContactDetailView, ContactListView
 
 
-class ContactsAPIUrlsTests(SimpleTestCase):
+class ChapianaAPIUrlsTests(SimpleTestCase):
     def test_landing_page_is_resolved(self):
         response = self.client.get("/")
         self.assertEqual(response.status_code, 200)

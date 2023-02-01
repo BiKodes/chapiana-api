@@ -1,9 +1,9 @@
-# contactsapi
+# Chapiana-APi
 
 [![Build Status](https://travis-ci.org/BikoCodes/contactsapi.svg?branch=master)](https://travis-ci.org/BikoCodes/contactsapi)
 [![Built with](https://img.shields.io/badge/Built_with-Cookiecutter_Django_Rest-F7B633.svg)](https://github.com/agconti/cookiecutter-django-rest)
 
-Its all about a Weissman score > 5.0. Check out the project's [documentation](http://BikoCodes.github.io/contactsapi/).
+Its all about a Weissman score > 5.0. Check out the project's [documentation](https://gitlab.com/bikocodes/chapiana-api/-/blob/dev/README.md).
 
 # Prerequisites
 

@@ -9,8 +9,8 @@ omit =
         *test*,
         *admin*,
         ./manage.py,
-        ./contacts/config/*,
-        ./contacts/wsgi.py,
+        ./src/config/*,
+        ./src/wsgi.py,
         *__init__*
 
 [html]

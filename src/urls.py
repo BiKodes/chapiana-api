@@ -15,9 +15,9 @@ from .users.views import UserCreateViewSet, UserViewSet
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="Contacts List API",
+        title="Chapiana API",
         default_version="v1",
-        description="An API for contacts developed by Python(Django Rest Framework).",
+        description="An API for contacts developed majorly using Python's framework called Django Rest Framework.",
         contact=openapi.Contact(email="bikocodes@gmail.com"),
         license=openapi.License(name="BSD License"),
     ),
@@ -39,6 +39,7 @@ urlpatterns = [
     path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("token/verify/", TokenVerifyView.as_view(), name="token_verify"),
     path("contacts/", include("src.contacts.urls"), name="contacts_app"),
+    
     path("", schema_view.with_ui("swagger", cache_timeout=0), name="schema-swagger-ui"),
     path("redoc/", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"),
     # the 'api-root' from django rest-frameworks default router
