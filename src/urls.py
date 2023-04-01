@@ -16,7 +16,7 @@ from .users.views import UserCreateViewSet, UserViewSet
 schema_view = get_schema_view(
     openapi.Info(
         title="Chapiana API",
-        default_version="0.0.1",
+        default_version="v1",
         description="An API for contacts developed majorly using Python's framework called Django Rest Framework.",
         contact=openapi.Contact(email="bikocodes@gmail.com"),
         license=openapi.License(name="MIT License"),
