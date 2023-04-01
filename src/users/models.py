@@ -11,7 +11,6 @@ AUTH_PROVIDERS = {
     "email": "email",
 }
 
-
 class User(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     auth_provider = models.CharField(
@@ -20,7 +19,6 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.username
-
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_auth_token(sender, instance=None, created=False, **kwargs):

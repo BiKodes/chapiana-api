@@ -16,10 +16,10 @@ from .users.views import UserCreateViewSet, UserViewSet
 schema_view = get_schema_view(
     openapi.Info(
         title="Chapiana API",
-        default_version="v1",
+        default_version="0.0.1",
         description="An API for contacts developed majorly using Python's framework called Django Rest Framework.",
         contact=openapi.Contact(email="bikocodes@gmail.com"),
-        license=openapi.License(name="BSD License"),
+        license=openapi.License(name="MIT License"),
     ),
     public=True,
     permission_classes=[permissions.AllowAny],
@@ -32,17 +32,18 @@ router.register(r"users", UserCreateViewSet, basename="create_user")
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api/v1/", include(router.urls)),
+    path("api/", include(router.urls)),
     path("api-token-auth/", views.obtain_auth_token),
-    path("accounts/", include("rest_framework.urls", namespace="rest_framework")),
+    
     path("token/obtain-pair/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("token/verify/", TokenVerifyView.as_view(), name="token_verify"),
+
+    path("accounts/", include("rest_framework.urls", namespace="rest_framework")),
     path("contacts/", include("src.contacts.urls"), name="contacts_app"),
     
     path("", schema_view.with_ui("swagger", cache_timeout=0), name="schema-swagger-ui"),
     path("redoc/", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"),
-    # the 'api-root' from django rest-frameworks default router
-    # http://www.django-rest-framework.org/api-guide/routers/#defaultrouter
+  
     re_path(r"^$", RedirectView.as_view(url=reverse_lazy("api-root"), permanent=False)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
