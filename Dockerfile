@@ -1,5 +1,7 @@
 FROM python:3.8-slim-buster
 
+SHELL ["/bin/sh", "-c"]
+
 LABEL version="0.0.1" \
     author="BikoCodes" \
     maintainer="Chapiana Inc <bikocodes@gmail.com>"
@@ -21,7 +23,9 @@ RUN pip install -r requirements.txt
 EXPOSE 8000
 
 VOLUME ["/opt/chapiana-api"]
-CMD ["python3", "manage.py", "runserver", "0.0.0.0:$PORT"]
 
 COPY ./opt/entrypoint.sh /
+RUN chmod 755 /opt/entrypoint
 ENTRYPOINT ["sh", "/opt/chapiana-api/entrypoint.sh" ]
+
+CMD ["python3", "manage.py", "runserver", "0.0.0.0:$PORT"]
