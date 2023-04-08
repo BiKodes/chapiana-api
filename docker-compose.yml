@@ -1,27 +1,82 @@
-version: '3'
+version: 3"
 services:
-  postgres:
-    image: postgres:11.6
-  web:
-    restart: always
-    environment:
-      - DJANGO_SECRET_KEY=local
-    build: ./
-    command: >
-      bash -c "python wait_for_postgres.py &&
-               ./manage.py migrate &&
-               ./manage.py runserver 0.0.0.0:8000"
-    volumes:
-      - ./:/code
-    ports:
-      - "8000:8000"
-    depends_on:
+
+    postgres:
+      image: postgres
+      restart: always
+      environment:
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: "kejani"
+        POSTGRES_DB: gisdb,cot_streams
+      ports:
+        - "5432:5432"
+      volumes:
+        - pgdata:/var/lib/postgresql/data
+        - ./docker/db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      networks:
+        - helio -network
+
+    pgadmin:
+      image: dpage/pgadmin4
+      environment:
+        PGADMIN_DEFAULT_EMAIL: "bikocodes@gmail.com"
+        PGADMIN_DEFAULT_PASSWORD: "kejani"
+      ports:
+        - "8080:80"
+      depends_on:
+        - postgres
+      volumes:
+        - pgadmin-data:/var/lib/pgadmin
+      networks:
+        - helio-network
+
+    api:
+      build: ./
+      command: >
+        bash -c "python wait_for_postgres.py &&
+                ./manage.py migrate &&
+                ./manage.py runserver 0.0.0.0:8000"
+      depends_on:
       - postgres
-  documentation:
-    restart: always
-    build: ./
-    command: "mkdocs serve"
-    volumes:
-      - ./:/code
-    ports:
-      - "8001:8001"
+      environment:
+      - DJANGO_SECRET_KEY: "local"
+      ports:
+        - "8000:8000"
+      restart: unless-stopped
+      volumes:
+        - ./:/code
+      networks:
+        - helio-network
+
+    helios:
+      build:
+        dockerfile: docker/Dockerfile
+        context: ./
+      command: python manage.py runserver 0.0.0.0:8000
+      depends_on:
+        - postgres
+      environment:
+        - POSTGRES_HOST="postgres"
+        - CELERY_BROKER_URL="amqp://rabbitmq"
+      ports:
+        - "8000:8000"
+      networks:
+        - helio-network
+      restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
+      stop_grace_period: "${DOCKER_STOP_GRACE_PERIOD:-3s}"
+      volumes:
+        - ./:/app
+
+    redis:
+      restart: always
+      image: redis:latest
+      networks:
+        - helio-network
+
+networks:
+  helio-network:
+    driver: bridge
+
+volumes:
+  db-data:
+  pgadmin-data:
