@@ -5,13 +5,13 @@ services:
       image: postgres
       restart: always
       environment:
-        POSTGRES_USER: postgres
-        POSTGRES_PASSWORD: "kejani"
-        POSTGRES_DB: gisdb,cot_streams
+        POSTGRES_USER: "${DB_USER}"
+        POSTGRES_PASSWORD: "${DB_PASS}"
+        POSTGRES_DB: "${DB_NAME}"
       ports:
         - "5432:5432"
       volumes:
-        - pgdata:/var/lib/postgresql/data
+        - postgresql-data:/var/lib/postgresql/data
         - ./docker/db/init.sql:/docker-entrypoint-initdb.d/init.sql
       networks:
         - helio -network
@@ -70,13 +70,28 @@ services:
     redis:
       restart: always
       image: redis:latest
+      command:
+      - --loglevel warning
+      volumes:
+      - redis-data:/data:Z
       networks:
         - helio-network
+
+    nginx:
+      restart: always
+      build: ./nginx/
+      ports:
+        - "80:80"
+      volumes:
+        - web-static:/www/static
+      links:
+        - web:web
 
 networks:
   helio-network:
     driver: bridge
 
 volumes:
-  db-data:
+  redis-data:
+  postgresql-data:
   pgadmin-data:
