@@ -21,7 +21,7 @@ class Contact(models.Model):
     phone_number = models.CharField(verbose_name="Phone", max_length=100)
     mobile_number = models.CharField(verbose_name="Mobile phone", max_length=100)
     is_favorite = models.BooleanField(default=False)
-    user_id = models.ForeignKey(User)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE, primary_key=True)
 
     def __unicode__(self):
         return u"%s %s" % (self.first_name, self.last_name)
@@ -30,8 +30,8 @@ class Contact(models.Model):
         return "%s %s" % (self.first_name, self.last_name)
 
 
-class Company(models.Mode):
-    user = models.OneToOneField(Contact, on_delete=models.CASCADE, primary_key=True)
+class Company(models.Model):
+    user = models.OneToOneField(Contact, on_delete=models.CASCADE, primary_key=True, unique=True)
     company_name = models.CharField(max_length=40, null=False)
     designation = models.CharField(max_length=30, null=True)
 
@@ -39,13 +39,13 @@ class MobileInfo(models.Model):
     email_type = models.CharField(max_length=10, choices=COMMON_CHOICES, default="W")
     address = models.TextField(max_length=150, null=True)
     address_type = models.CharField(max_length=10, choices=COMMON_CHOICES, default="W")
-    user = models.ForeignKey(Contact, on_delete=models.CASCADE)
+    contanct = models.ForeignKey(Contact, on_delete=models.CASCADE, primary_key=True)
 
 
 class DateInfo(models.Model):
     date = models.DateField()
     occasion = models.CharField(max_length=15, choices=DATE_CHOIECS)
-    user = models.ForeignKey(Contact, on_delete=models.CASCADE)
+    contact = models.ForeignKey(Contact, on_delete=models.CASCADE, primary_key=True)
 
 class Relationship(models.Model):
     relation = models.CharField(max_length=15, choices=RELATIONS)
@@ -55,4 +55,4 @@ class Relationship(models.Model):
 class Description(models.Model):
     picture = models.FilePathField(os.getcwd())
     description = models.TextField(max_length=100, null=True)
-    user = models.FilePathField()
+    file = models.FilePathField()

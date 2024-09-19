@@ -28,6 +28,8 @@ class Common(Configuration):
         "rest_framework_simplejwt.token_blacklist",
         "drf_yasg",
         "corsheaders",
+        "drf_spectacular",
+        "drf_spectacular_sidecar",
         
         # Your apps
         "src.users",
@@ -43,6 +45,17 @@ class Common(Configuration):
             }
         },
     }
+
+    SEPCTACULAR_SETTINGS = {
+        'TITLE': 'Chapiana API',
+        'DESCRIPTION': 'Communication Infrasture',
+        'VERSION': '0.0.1',
+        'SERVE_INCLUDE_SCHEMA': False,
+        'SWAGGER_UI_DIST': 'SIDECAR',
+        'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
+        'REDOC_DIST': 'SIDECAR',
+    }
+
 
     MIDDLEWARE = (
         "django.middleware.security.SecurityMiddleware",
@@ -69,7 +82,7 @@ class Common(Configuration):
 
     DATABASES = {
         "default": dj_database_url.config(
-            default="postgres://postgres:@postgres:5432/postgres",
+            default="postgres://chapiana:@chapiana:5432/chapiana",
             conn_max_age=int(os.getenv("POSTGRES_CONN_MAX_AGE", 600)),
         )
     }
@@ -209,6 +222,8 @@ class Common(Configuration):
             "rest_framework_simplejwt.authentication.JWTAuthentication",
             "rest_framework.authentication.TokenAuthentication",
         ),
+        # custom settings
+        'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     }
 
     AUTHENTICATION_BACKENDS = ("django.contrib.auth.backends.ModelBackend",)
@@ -217,3 +232,5 @@ class Common(Configuration):
         "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
         "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
     }
+
+    DEFAULT_AUTO_FIELD='django.db.models.BigAutoField'
