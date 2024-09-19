@@ -402,9 +402,8 @@ components:
     Contact:
       type: object
       properties:
-        user_id:
-          type: string
-          format: uuid
+        id:
+          type: integer
           readOnly: true
         contact_image:
           type: string
@@ -426,28 +425,32 @@ components:
         email:
           type: string
           format: email
+          nullable: true
           maxLength: 100
         country_code:
           type: string
+          nullable: true
           maxLength: 100
         phone_number:
           type: string
+          nullable: true
           title: Phone
           maxLength: 100
         mobile_number:
           type: string
+          nullable: true
           title: Mobile phone
           maxLength: 100
         is_favorite:
           type: boolean
+        owner:
+          type: string
+          format: uuid
       required:
-      - country_code
-      - email
       - first_name
+      - id
       - last_name
-      - mobile_number
-      - phone_number
-      - user_id
+      - owner
     CreateUser:
       type: object
       properties:
@@ -546,9 +549,8 @@ components:
     PatchedContact:
       type: object
       properties:
-        user_id:
-          type: string
-          format: uuid
+        id:
+          type: integer
           readOnly: true
         contact_image:
           type: string
@@ -570,20 +572,27 @@ components:
         email:
           type: string
           format: email
+          nullable: true
           maxLength: 100
         country_code:
           type: string
+          nullable: true
           maxLength: 100
         phone_number:
           type: string
+          nullable: true
           title: Phone
           maxLength: 100
         mobile_number:
           type: string
+          nullable: true
           title: Mobile phone
           maxLength: 100
         is_favorite:
           type: boolean
+        owner:
+          type: string
+          format: uuid
     PatchedUser:
       type: object
       properties:
